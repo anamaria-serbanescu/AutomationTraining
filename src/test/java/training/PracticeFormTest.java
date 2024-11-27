@@ -3,6 +3,7 @@ package training;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import training.pages.HomePage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,52 +15,54 @@ public class PracticeFormTest {
     public WebDriver driver;
 
     @Test
-    public void navigateFromHomePageToPracticeFormPage(){
+    public void navigateFromHomePageToPracticeFormPage() {
         openBrowser();
-        clickOnFormsMenu();
-        clickOnPracticeFormSubMenu();
-        scrollDown();
-        fillFirstName();
-        fillLastName();
-        fillEmail();
-        fillPhoneNumber();
-        scrollDown();
-        fillGender("Male");
-        selectSubject();
-        selectHobbies("Sports");
-        uploadPicture();
-        scrollDown();
-        clickOnSubmitButton();
+        HomePage homePage = new HomePage(driver);
+        homePage.isPageLoaded();
+        homePage.clickOnDesireMenu("Forms");
+//        clickOnPracticeFormSubMenu();
+//        scrollDown();
+//        fillFirstName();
+//        fillLastName();
+//        fillEmail();
+//        fillPhoneNumber();
+//        scrollDown();
+//        fillGender("Male");
+//        selectSubject();
+//        selectHobbies("Sports");
+//        uploadPicture();
+//        scrollDown();
+//        clickOnSubmitButton();
     }
 
     //facem o metoda care sa deschida browserul Chrome
-    public void openBrowser (){
+    public void openBrowser() {
         driver = new ChromeDriver();
         driver.get("https://demoqa.com/");
         driver.manage().window().maximize();
     }
 
     //facem o metoda care sa faca click pe meniul Forms
-    public void clickOnFormsMenu(){
-        scrollDown();
-        WebElement formsMenuElement = driver.findElement(By.xpath("//h5[text()='Forms']"));
-        formsMenuElement.click();
-    }
+//    public void clickOnFormsMenu() {
+//        scrollDown();
+//        WebElement formsMenuElement = driver.findElement(By.xpath("//h5[text()='Forms']"));
+//        formsMenuElement.click();
+//    }
 
     // facem o metoda care sa faca scroll in jos pe pagina
-   public void scrollDown(){
-       JavascriptExecutor js = (JavascriptExecutor) driver;
-       js.executeScript("window.scrollBy(0,400)");
-   }
+    public void scrollDown() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400)");
+    }
 
-   // facem o metoda care sa faca click pe pe submeniul practice form
-    public void clickOnPracticeFormSubMenu(){
+    // facem o metoda care sa faca click pe pe submeniul practice form
+    public void clickOnPracticeFormSubMenu() {
         WebElement practiceFormSbMenuElement = driver.findElement(By.xpath("//span[text()='Practice Form']"));
         practiceFormSbMenuElement.click();
     }
 
     // facem o metoda sa completam campul de First Name
-    public void fillFirstName(){
+    public void fillFirstName() {
         WebElement firstNameFieldElement = driver.findElement(By.id("firstName"));
         firstNameFieldElement.sendKeys("Bogdan");
     }
@@ -100,13 +103,13 @@ public class PracticeFormTest {
 
 
     // facem o metoda care sa completeze Data nasterii
-    public void fillDateOfBirth(){
+    public void fillDateOfBirth() {
 
     }
 
 
     // facem o metoda care sa completeze Subjects
-    public void selectSubject(){
+    public void selectSubject() {
         WebElement selectSubjectInputField = driver.findElement(By.id("subjectsInput"));
         selectSubjectInputField.sendKeys("Accounting");
         selectSubjectInputField.sendKeys(Keys.ENTER);
@@ -130,7 +133,7 @@ public class PracticeFormTest {
 
 
     // facem o metoda care sa incarce un fisier in formular
-    public void uploadPicture (){
+    public void uploadPicture() {
         String pictureFilePath = "src/test/resources/Screenshot 2024-09-14 113309.png";
         File file = new File(pictureFilePath);
         WebElement inputPictureButton = driver.findElement(By.cssSelector("#uploadpicture"));
@@ -138,13 +141,12 @@ public class PracticeFormTest {
     }
 
 
-
     // vom face scroll in continuare
     // facem o metoda care sa completeze campul Current Adress
     // facem o metoda care sa selecteze Statul
     // facem o metoda care sa selecteze Orasul
     // facem o metoda care sa selecteze Submit
-    public void clickOnSubmitButton(){
+    public void clickOnSubmitButton() {
         WebElement submitButton = driver.findElement(By.xpath("//button[@id='submit']"));
         submitButton.click();
     }
