@@ -20,8 +20,6 @@ public class HomePage extends BasePage{
     //un constructor care match-uieste constructorul din clasa mostenita BasePage
     public HomePage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
-
     }
 
     //implementare a metodei abstracte pentru HomePage din BasePage
