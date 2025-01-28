@@ -3,7 +3,6 @@ package training.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.List;
@@ -27,27 +26,10 @@ public class CommonPage extends BasePage{
     }
 
     public void selectMenu(String menuName){
-        //scrollDown();
-
-        for (WebElement element: menuListElement){
-            if (element.getText().equals(menuName)) {
-                element.click();
-                break;
-            }
-        }
+        elementsHelper.selectElementByTextFromList(menuName, menuListElement);
     }
 
     public void selectSubMenu(String subMenuName){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        for (WebElement element: subMenuList){
-            if (element.getText().equals(subMenuName)){
-                element.click();
-                break;
-            }
-        }
+        elementsHelper.selectElementByTextFromList(subMenuName, subMenuList);
     }
 }

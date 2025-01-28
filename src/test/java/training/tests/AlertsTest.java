@@ -10,18 +10,28 @@ import training.pages.AlertsPage;
 
 import java.time.Duration;
 
+import static extendUtility.ExtentManager.logEvents;
+import static extendUtility.ReportEventType.*;
+import static training.constants.MenuKeys.ALERTS_FRAMES_WINDOWS_MENU;
+import static training.constants.SubMenuKeys.ALERTS_SUBMENU;
+
 public class AlertsTest extends BaseTest {
 
 //    WebDriver driver;
     @Test
     public void alertsTests() {
         homePage.isPageLoaded();
-        homePage.clickOnDesireMenu("Alerts, Frame & Windows");
+        logEvents(PASS_STEP, "Verify if homepage is loaded correctly");
+        homePage.clickOnDesireMenu(ALERTS_FRAMES_WINDOWS_MENU);
+        logEvents(INFO_STEP, "Select ALERTS_FRAMES_WINDOWS from menu");
         commonPage.isPageLoaded();
-        commonPage.selectSubMenu("Alerts");
+        commonPage.selectSubMenu(ALERTS_SUBMENU);
+        logEvents(INFO_STEP, "Select ALERTS_SUBMENU from Common Page");
         AlertsPage alertsPage = new AlertsPage(driver);
         alertsPage.isPageLoaded();
-        alertsPage.interactWithAllAlerts();
+        logEvents(PASS_STEP, "Verify if Alert Page is loaded correctly");
+        alertsPage.interactWithAllAlerts("Alerts test");
+        logEvents(PASS_STEP, "Interact with all the alerts form Alert Page");
     }
 //        alertsPage.clickFirstAlertButton();
 //        alertsPage.interactWithWaitingAlert();

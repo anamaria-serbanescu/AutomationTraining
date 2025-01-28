@@ -3,6 +3,7 @@ package training.tests;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import propertyUtility.PropertyUtility;
 import training.pages.CommonPage;
 import training.pages.HomePage;
 import training.pages.PracticeFormPage;
@@ -10,6 +11,10 @@ import training.pages.PracticeFormPage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static training.constants.MenuKeys.FORMS_MENU;
+import static training.constants.SubMenuKeys.PRACTICE_FORM_SUBMENU;
 
 public class PracticeFormTest extends BaseTest {
 
@@ -19,14 +24,33 @@ public class PracticeFormTest extends BaseTest {
     @Test
     public void navigateFromHomePageToPracticeFormPage() {
         homePage.isPageLoaded();
-        homePage.clickOnDesireMenu("Forms");
+        homePage.clickOnDesireMenu(FORMS_MENU);
         commonPage.isPageLoaded();
-        commonPage.selectSubMenu("Practice Form");
+        commonPage.selectSubMenu(PRACTICE_FORM_SUBMENU);
         PracticeFormPage practiceFormPage = new PracticeFormPage(driver);
+        propertyUtility = new PropertyUtility("PracticeFormTest");
+        Map <String, Object> practiceFormDataEntry = propertyUtility.getAllProperties();
         practiceFormPage.isPageLoaded();
-//        practiceFormPage.fillFirstAndLastName();
+//        List <String> subjectList = List.of("Accounting", "Maths");
+//        List <String> hobbiesList = List.of("Sports", "Music");
+//        practiceFormPage.fillEntireForm("Stanciu", "Ionut", "itschool@gmail.com", "Male","0731673890", subjectList, hobbiesList, "Marte nr.7", "11 January 2004", "NCR", "Delhi");
+//
+//        practiceFormPage.fillEntireForm(
+//                propertyUtility.getProperty("firstName"),
+//                propertyUtility.getProperty("lastName"),
+//                propertyUtility.getProperty("email"),
+//                propertyUtility.getProperty("phoneNumber"),
+//                propertyUtility.getProperty("gender"),
+//                propertyUtility.getPropertyAsList("subject"),
+//                propertyUtility.getPropertyAsList("hobbies"),
+//                propertyUtility.getProperty("address"),
+//                propertyUtility.getProperty("DOB"),
+//                propertyUtility.getProperty("state"),
+//                propertyUtility.getProperty("city")
+//        );
+        practiceFormPage.fillEntireFormWithPropertiesData(practiceFormDataEntry);
+
 //        practiceFormPage.emailInput();
-        practiceFormPage.fillEntireForm();
 //        clickOnPracticeFormSubMenu();
 //        scrollDown();
 //        fillFirstName();
@@ -141,7 +165,7 @@ public class PracticeFormTest extends BaseTest {
 
     // facem o metoda care sa incarce un fisier in formular
 //    public void uploadPicture() {
-//        String pictureFilePath = "src/test/resources/Screenshot 2024-09-14 113309.png";
+//        String pictureFilePath = "src/test/resources/Screenshot1.png";
 //        File file = new File(pictureFilePath);
 //        WebElement inputPictureButton = driver.findElement(By.cssSelector("#uploadpicture"));
 //        inputPictureButton.sendKeys(file.getAbsolutePath());

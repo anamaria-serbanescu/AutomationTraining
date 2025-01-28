@@ -1,10 +1,8 @@
 package training.pages;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.List;
@@ -25,8 +23,7 @@ public class HomePage extends BasePage{
     //implementare a metodei abstracte pentru HomePage din BasePage
     @Override
     public void isPageLoaded() {
-        Assert.assertTrue(pageTitle.getAttribute("alt").equals("Selenium Online Training"),"Page is not loaded correctly");
-
+        Assert.assertEquals(pageTitle.getAttribute("alt"), "Selenium Online Training", "Page is not loaded correctly");
     }
 
     //facem metode specifice pentru pagina
@@ -39,20 +36,15 @@ public class HomePage extends BasePage{
     //facem o metoda care sa faca click pe un meniu ales de noi
 
     public void clickOnDesireMenu(String menuName){
-        scrollDown();
-        for (WebElement element: menuListElements){
-            if (element.getText().equals(menuName)){
-                element.click();
-                break;
-            }
-        }
+        elementsHelper.scrollDown();
+        elementsHelper.selectElementByTextFromList(menuName,menuListElements);
 
     }
 
 
     // facem o metoda care sa faca scroll in jos pe pagina
-    public void scrollDown() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)");
-    }
+//    public void scrollDown() {
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("window.scrollBy(0,400)");
+//    }
 }

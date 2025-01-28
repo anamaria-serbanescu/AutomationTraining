@@ -23,18 +23,25 @@ public class FramesPage extends BasePage{
         super(driver);
     }
 
-    public void interactiveFrameOne (){
-        driver.switchTo().frame(frameOneElement);
-        System.out.println("Testul din framu-ul 1 este: " + sampleText.getText());
+    public void interactWithAllFrames(){
+        interactiveFrameOne();
+        interactiveFrameTwo();
     }
 
-    public void switchToDefaultPage(){
-        driver.switchTo().defaultContent();
+    public void interactiveFrameOne (){
+        frameHelpers.switchOnFrame(frameOneElement);
+        System.out.println("Testul din frame-ul 1 este: " + sampleText.getText());
+        frameHelpers.switchToDefaultPage();
     }
+
+//    public void switchToDefaultPage(){
+//        driver.switchTo().defaultContent();
+//    }
 
     public void interactiveFrameTwo (){
-        driver.switchTo().frame(frameTwoElement);
-        System.out.println("Testul din framu-ul 2 este: " + sampleText.getText());
+        frameHelpers.switchOnFrame(frameTwoElement);
+        System.out.println("Testul din frame-ul 2 este: " + sampleText.getText());
+        frameHelpers.switchToDefaultPage();
     }
 
     @Override

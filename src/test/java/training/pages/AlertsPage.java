@@ -4,11 +4,10 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.time.Duration;
+import static extendUtility.ExtentManager.logEvents;
+import static extendUtility.ReportEventType.INFO_STEP;
 
 public class AlertsPage extends BasePage{
 
@@ -33,32 +32,37 @@ public class AlertsPage extends BasePage{
     }
 
     //Metode specifice pt pagina:
-    public void interactWithAllAlerts(){
-        clickFirstAlertButton();
+    public void interactWithAllAlerts(String alertText){
+        interactWithFirstAlert();
+        logEvents(INFO_STEP, "Interact with first alert");
         interactWithWaitingAlert();
-        clickThirdButton();
-        clickFourthButton();
+        logEvents(INFO_STEP, "Interact with waiting alert");
+        interactWithThirdAlert();
+        logEvents(INFO_STEP, "Interact with third alert");
+        interactWithFourthAlert(alertText);
+        logEvents(INFO_STEP, "Interact with forth alert");
     }
 
-    public void clickFirstAlertButton(){
-        firstAlertButton.click();
-        Alert clickOk = driver.switchTo().alert();
-        clickOk.accept();
+    public void interactWithFirstAlert(){
+        elementsHelper.clickElement(firstAlertButton);
+        logEvents(INFO_STEP, "Click on First Alert Button");
+        alertHelpers.acceptAlert();
+        logEvents(INFO_STEP, "Accept First Alert");
     }
 
     public void interactWithWaitingAlert(){
-        clickSecondAlertButton();
-        waitForSecondAlert();
-        acceptSecondAlert();
+        elementsHelper.clickElement(secondAlert);
+        logEvents(INFO_STEP, "Click on Second Alert Button");
+        alertHelpers.timerAlert();
+        logEvents(INFO_STEP, "Wait for second alert and accept");
     }
 
-    public void clickSecondAlertButton(){
-        secondAlert.click();
+    public void interactWithSecondAlert(){
+        elementsHelper.clickElement(secondAlert);
     }
 
     public void waitForSecondAlert(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
-        wait.until(ExpectedConditions.alertIsPresent());
+        //elementsHelper.waitForElement(secondAlert);
     }
 
     public void acceptSecondAlert(){
@@ -66,17 +70,26 @@ public class AlertsPage extends BasePage{
         timerAlert.accept();
     }
 
-    public void clickThirdButton(){
-        thirdButton.click();
-        Alert confirmBoxAlert = driver.switchTo().alert();
-        confirmBoxAlert.dismiss();
+    public void interactWithThirdAlert(){
+        elementsHelper.clickElement(thirdButton);
+        logEvents(INFO_STEP, "Click on Third Alert Button");
+        alertHelpers.dismissAlert();
+        logEvents(INFO_STEP, "Dismiss Third Alert");
+//        thirdButton.click();
+//        Alert confirmBoxAlert = driver.switchTo().alert();
+//        confirmBoxAlert.dismiss();
     }
 
-    public void clickFourthButton(){
-        fourthButton.click();
-        Alert promtAlert = driver.switchTo().alert();
-        promtAlert.sendKeys("Emanuel");
-        promtAlert.accept();
+    public void interactWithFourthAlert(String text){
+        elementsHelper.clickElement(fourthButton);
+        logEvents(INFO_STEP, "Click on Forth Alert Button");
+        alertHelpers.promptAlert(text);
+        logEvents(INFO_STEP, "Write " +text +" and after click on accept");
+
+//        fourthButton.click();
+//        Alert promtAlert = driver.switchTo().alert();
+//        promtAlert.sendKeys("Emanuel");
+//        promtAlert.accept();
     }
 
     @Override
